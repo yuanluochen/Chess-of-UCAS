@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/home/devcontainers/code/chess/build",
+  "command": "/usr/bin/c++  -I/home/devcontainers/code/chess/include -g -o CMakeFiles/chess.out.dir/source/chessGame.cpp.o -c /home/devcontainers/code/chess/source/chessGame.cpp",
+  "file": "/home/devcontainers/code/chess/source/chessGame.cpp"
+},
+{
+  "directory": "/home/devcontainers/code/chess/build",
+  "command": "/usr/bin/c++  -I/home/devcontainers/code/chess/include -g -o CMakeFiles/chess.out.dir/source/main.cpp.o -c /home/devcontainers/code/chess/source/main.cpp",
+  "file": "/home/devcontainers/code/chess/source/main.cpp"
+}
+]
