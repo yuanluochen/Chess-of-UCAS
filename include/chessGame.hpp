@@ -3,6 +3,8 @@
 #include <ostream>
 #include <vector>
 
+//函数清空根据系统进行选择
+#define SYSTEM_IS_LINUX 1
 
 enum chessType { 
   BLACK = 1, 
