@@ -42,7 +42,13 @@ private:
   std::vector<chessPiece> chessPieces;
 
 public:
-  chessGame(int row, int col) : chessBoard({row, col}) {
+  //构造函数 由于英文字母仅有26个所以列最大26，当大于26时col为26, 为保证棋盘为正方形 row 也是同样的规则
+  chessGame(int size) : chessBoard({size, size}) {
+    if (size > 26){
+      std::cout << "warning: max value of row or col is 26!" << std::endl;
+      this->chessBoard.row = 26;
+      this->chessBoard.col = 26;
+    }
     // 初始化并且清空棋盘
     this->chessBoard.data =
         new int[this->chessBoard.row * this->chessBoard.col]{};

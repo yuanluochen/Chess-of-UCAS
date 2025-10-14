@@ -2,7 +2,7 @@
 #include <chessGame.hpp>
 using namespace std;
 int main(){
-  chessGame g(20, 20);
-  cout << g;
+  chessGame g(26);
+  // cout << g;
   return 0;
 }

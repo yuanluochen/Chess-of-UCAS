@@ -20,7 +20,7 @@ std::ostream & operator<<(std::ostream & os, const chessGame & chess){
   //绘制第一行
   os << setw(symBoard) << " ";
   for (int i = 0; i < chess.chessBoard.col; i++){
-    os << setw(charBoard) << i; 
+    os << setw(charBoard) << char('a' + i); 
   }
   os << endl;
   //绘制剩余
@@ -88,9 +88,8 @@ bool chessGame::isWin(chessType chtype) const{
   int count = 0;//连续棋子计算
   for (int k = 0; k < 4; k++){
     int curRow = 0, curCol = 0;
-    // 0列 -> (col - 1)列
     if (k < 2){
-      //起始遍历位置
+      // 0列 -> (col - 1)列
       for (int i = 0; i < this->chessBoard.col; i++){
         count = 0;//初始化
         curRow = 0;
