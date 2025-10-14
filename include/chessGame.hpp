@@ -1,25 +1,50 @@
 #pragma once
+#include <vector>
+
+enum chessType {
+  BLACK = 1,
+  WRITE = -1,
+  VOID = 0
+};
+class chessPiece{
+  private:
+    //类型
+    chessType type;
+    //位置
+    struct{
+      int row;
+      int col;     
+    } pos;
+  public:
+    chessPiece(chessType type, int rowPos, int colPos):type(type), pos({
+      rowPos,
+      colPos
+    }){};
+};
+
 class chessGame{
   private:
-    struct chessBoard{
+    // 棋盘
+    struct{
       int row;   // 行
       int col;   // 列
       int *data; // 棋盘数据
-    } Board;
+    } chessBoard;
+    //棋子历史数据
+    std::vector<chessPiece> chessPieces; 
   public:
-    chessGame(int row, int col){
-      this->Board.row = row;
-      this->Board.col = col;
-      this->Board.data = new int[this->Board.row * this->Board.col];
+    chessGame(int row, int col):chessBoard({
+      row, 
+      col
+    }){
+      this->chessBoard.data = new int[this->chessBoard.row * this->chessBoard.col];
     }
     ~chessGame(){
-      delete [] this->Board.data;
+      delete [] this->chessBoard.data;
     }
     
-    //展示棋盘
-    void displayBoard(){
-
-    }
+    //显示棋盘数据
+    void displayBoard() const;
 
 
 };
