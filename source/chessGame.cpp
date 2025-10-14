@@ -3,10 +3,10 @@
 
 
 /**
- * @brief 
+ * @brief 棋盘显示函数，重载了运算符 << 
  * 
  * @param os 
- * @param chess 
+ * @param chess chessGame 类的对象
  * @return std::ostream& 
  */
 std::ostream & operator<<(std::ostream & os, const chessGame & chess){
@@ -39,6 +39,7 @@ std::ostream & operator<<(std::ostream & os, const chessGame & chess){
   }
   return os; 
 };
+
 /**
  * @brief 获取(row, col)的数值
  * 
