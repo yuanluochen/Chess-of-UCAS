@@ -67,3 +67,14 @@ bool chessGame::setChessPiece(int row, int col, chessType chType){
     this->chessBoard.data[row * this->chessBoard.col + col] = chType;
   return true;
 }
+
+/**
+ * @brief 判断胜利
+ * 
+ * @param chtype 棋子类型
+ * @return true 胜利
+ * @return false 未胜利
+ */
+bool chessGame::isWin(chessType chtype) const{
+  
+}

@@ -53,4 +53,6 @@ public:
   int getChessPieceVal(int row, int col) const;
   //设置棋子位置
   bool setChessPiece(int row, int col, chessType chtype);
+  //判断胜利
+  bool isWin(chessType chtype) const;
 };
