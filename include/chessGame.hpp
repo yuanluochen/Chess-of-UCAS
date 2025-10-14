@@ -1,5 +1,8 @@
 #pragma once
+#include <iostream>
+#include <ostream>
 #include <vector>
+
 
 enum chessType { 
   BLACK = 1, 
@@ -35,6 +38,7 @@ private:
   } chessBoard;
   // 棋子历史数据
   std::vector<chessPiece> chessPieces;
+
 public:
   chessGame(int row, int col) : chessBoard({row, col}) {
     // 初始化并且清空棋盘
@@ -44,5 +48,9 @@ public:
   ~chessGame() { delete[] this->chessBoard.data; }
 
   // 显示棋盘数据
-  void displayBoard() const;
+  friend std::ostream & operator<<(std::ostream & os, const chessGame & chess);
+  //获取对应位置的棋子数值
+  int getChessPieceVal(int row, int col) const;
+  //设置棋子位置
+  bool setChessPiece(int row, int col, chessType chtype);
 };
