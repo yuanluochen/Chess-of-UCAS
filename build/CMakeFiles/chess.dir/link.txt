@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/chess.dir/source/chessGame.cpp.o CMakeFiles/chess.dir/source/main.cpp.o -o chess 

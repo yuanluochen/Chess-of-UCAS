@@ -1,3 +1,0 @@
-/home/devcontainers/code/chess/build/CMakeFiles/chess.out.dir
-/home/devcontainers/code/chess/build/CMakeFiles/edit_cache.dir
-/home/devcontainers/code/chess/build/CMakeFiles/rebuild_cache.dir
