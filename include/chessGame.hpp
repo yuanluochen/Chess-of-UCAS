@@ -2,7 +2,6 @@
 #include <iostream>
 #include <ostream>
 #include <queue>
-#include <vector>
 
 //函数清空根据系统进行选择
 #define SYSTEM_IS_LINUX 1
@@ -64,7 +63,7 @@ public:
   bool setChessPiece(int row, int col, chessType chtype);
   //判断胜利
   bool isWin(chessType chtype) const;
-  
+
 private:
   //单个方向遍历函数，返回该方向连续棋子个数
   int singleDirCount(int row, int col) const;

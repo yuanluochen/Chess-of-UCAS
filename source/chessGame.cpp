@@ -1,7 +1,5 @@
 #include "chessGame.hpp"
-#include <algorithm>
 #include <iomanip>
-#include <vector>
 
 
 /**
