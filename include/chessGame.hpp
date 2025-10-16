@@ -64,6 +64,8 @@ public:
   bool setChessPiece(int row, int col, chessType chtype);
   //判断胜利
   bool isWin(chessType chtype) const;
+  
+private:
   //单个方向遍历函数，返回该方向连续棋子个数
   int singleDirCount(int row, int col) const;
   

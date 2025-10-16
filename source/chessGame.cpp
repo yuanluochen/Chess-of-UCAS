@@ -79,6 +79,7 @@ bool chessGame::setChessPiece(int row, int col, chessType chType){
   }
   return true;
 }
+
 /**
  * @brief 单方向遍历函数 返回连续棋子个数(包含起始棋子)
  * 
@@ -112,7 +113,6 @@ int chessGame::singleDirCount(int row, int col) const{
   }
   return count;
 }
-#define DIR_SIZE 8
 
 /**
  * @brief 判断胜利，以新下的棋子为中心位置从八个方向进行判断
@@ -132,7 +132,7 @@ bool chessGame::isWin(chessType chtype) const{
   };
   enum DIR { L, L_U, U, R_U, R, R_D, D, L_D };
   //8个遍历方向
-  dir dir_a[DIR_SIZE] = {
+  dir dir_a[8] = {
     {0, -1}, 
     {-1, -1},
     {-1, 0},

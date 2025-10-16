@@ -5,7 +5,7 @@ int main(){
   chessGame g(26);
   for (int i = 0; i < 5; i++){
 
-    g.setChessPiece(5 - i, i + 5, BLACK);
+    g.setChessPiece(i, 5, BLACK);
     
   } 
   cout << g << g.isWin(BLACK);
