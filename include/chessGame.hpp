@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <ostream>
+#include <queue>
 #include <vector>
 
 //函数清空根据系统进行选择
@@ -12,7 +13,7 @@ enum chessType {
   VOID = 0 
 };
 class chessPiece {
-private:
+public:
   // 类型
   chessType type;
   // 位置
@@ -39,7 +40,7 @@ private:
     int *data; // 棋盘数据
   } chessBoard;
   // 棋子历史数据
-  std::vector<chessPiece> chessPieces;
+  std::queue<chessPiece> chessPiece_q;
 
 public:
   //构造函数 由于英文字母仅有26个所以列最大26，当大于26时col为26, 为保证棋盘为正方形 row 也是同样的规则
@@ -63,4 +64,7 @@ public:
   bool setChessPiece(int row, int col, chessType chtype);
   //判断胜利
   bool isWin(chessType chtype) const;
+  //单个方向遍历函数，返回该方向连续棋子个数
+  int singleDirCount(int row, int col) const;
+  
 };
