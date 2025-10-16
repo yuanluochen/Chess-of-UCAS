@@ -1,7 +1,6 @@
 #include "chessGame.hpp"
 #include <iomanip>
 
-
 /**
  * @brief 棋盘显示函数，重载了运算符 << 
  * 
@@ -13,10 +12,12 @@ std::ostream & operator<<(std::ostream & os, const chessGame & chess){
   using namespace std;
   const int symBoard = 3;
   const int charBoard = 2;
+
   //清空终端
   #ifdef SYSTEM_IS_LINUX
   system("clear");
   #endif // DEBUG
+
   //绘制第一行
   os << setw(symBoard) << " ";
   for (int i = 0; i < chess.chessBoard.col; i++){
