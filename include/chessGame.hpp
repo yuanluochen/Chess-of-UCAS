@@ -53,8 +53,11 @@ public:
     this->chessBoard.data =
         new int[this->chessBoard.row * this->chessBoard.col]{};
   }
-  ~chessGame() { delete[] this->chessBoard.data; }
 
+  chessGame(chessGame &) = delete;
+  chessGame &operator=(chessGame &) = delete;
+
+  ~chessGame() { delete[] this->chessBoard.data; }
   // 显示棋盘数据
   friend std::ostream & operator<<(std::ostream & os, const chessGame & chess);
   //获取对应位置的棋子数值
