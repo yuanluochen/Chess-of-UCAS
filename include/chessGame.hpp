@@ -54,8 +54,16 @@ public:
         new int[this->chessBoard.row * this->chessBoard.col]{};
   }
 
-  chessGame(chessGame &) = delete;
-  chessGame &operator=(chessGame &) = delete;
+  //拷贝构造和赋值操作重载
+  chessGame & operator=(const chessGame & ch){
+    this->chessBoard.row = ch.chessBoard.row;
+    this->chessBoard.col = ch.chessBoard.col;
+    this->chessBoard.data =
+        new int[this->chessBoard.row * this->chessBoard.col]{};
+    this->chessPiece_q = ch.chessPiece_q;
+    return *this;
+  }
+  chessGame(const chessGame &ch) { *this = ch; }
 
   ~chessGame() { delete[] this->chessBoard.data; }
   // 显示棋盘数据

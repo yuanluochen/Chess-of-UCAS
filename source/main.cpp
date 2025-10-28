@@ -8,9 +8,9 @@ int main(){
   //   g.setChessPiece(i, 5, BLACK);   
   // } 
   // cout << g << g.isWin(BLACK);
-  graph graph;
-  int idx = graph.addNode(-1, 10);
-  idx = graph.addNode(idx, 20);
+
+  graph<int> graph;
+  int idx = graph.addNode(-1, 20);
   idx = graph.addNode(idx, 30);
   idx = graph.addNode(idx, 40);
   idx = graph.addNode(idx, 50);
