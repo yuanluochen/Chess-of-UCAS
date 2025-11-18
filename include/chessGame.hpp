@@ -1,7 +1,9 @@
+// 在 chessGame.hpp 中添加必要的头文件和函数声明
 #pragma once
 #include <iostream>
 #include <ostream>
 #include <queue>
+#include <vector>
 
 //函数清空根据系统进行选择
 #define SYSTEM_IS_LINUX 1
@@ -11,6 +13,7 @@ enum chessType {
   WRITE = -1, 
   VOID = 0 
 };
+
 class chessPiece {
 public:
   // 类型
@@ -42,7 +45,7 @@ private:
   std::queue<chessPiece> chessPiece_q;
 
 public:
-  //构造函数 由于英文字母仅有26个所以列最大26，当大于26时col为26, 为保证棋盘为正方形 row 也是同样的规则
+  //构造函数
   chessGame(int size) : chessBoard({size, size}) {
     if (size > 26){
       std::cout << "warning: max value of row or col is 26!" << std::endl;
@@ -54,29 +57,60 @@ public:
         new int[this->chessBoard.row * this->chessBoard.col]{};
   }
 
+  // 默认构造函数
+  chessGame() : chessBoard({15, 15}) {
+    this->chessBoard.data = new int[15 * 15]{};
+  }
+
   //拷贝构造和赋值操作重载
   chessGame & operator=(const chessGame & ch){
-    this->chessBoard.row = ch.chessBoard.row;
-    this->chessBoard.col = ch.chessBoard.col;
-    this->chessBoard.data =
-        new int[this->chessBoard.row * this->chessBoard.col]{};
-    this->chessPiece_q = ch.chessPiece_q;
+    if (this != &ch) {
+      delete[] this->chessBoard.data;
+      this->chessBoard.row = ch.chessBoard.row;
+      this->chessBoard.col = ch.chessBoard.col;
+      this->chessBoard.data = new int[this->chessBoard.row * this->chessBoard.col];
+      for (int i = 0; i < this->chessBoard.row * this->chessBoard.col; i++) {
+        this->chessBoard.data[i] = ch.chessBoard.data[i];
+      }
+      this->chessPiece_q = ch.chessPiece_q;
+    }
     return *this;
   }
-  chessGame(const chessGame &ch) { *this = ch; }
+  
+  chessGame(const chessGame &ch) { 
+    this->chessBoard.row = ch.chessBoard.row;
+    this->chessBoard.col = ch.chessBoard.col;
+    this->chessBoard.data = new int[this->chessBoard.row * this->chessBoard.col];
+    for (int i = 0; i < this->chessBoard.row * this->chessBoard.col; i++) {
+      this->chessBoard.data[i] = ch.chessBoard.data[i];
+    }
+    this->chessPiece_q = ch.chessPiece_q;
+  }
 
   ~chessGame() { delete[] this->chessBoard.data; }
+  
   // 显示棋盘数据
   friend std::ostream & operator<<(std::ostream & os, const chessGame & chess);
+  
   //获取对应位置的棋子数值
   int getChessPieceVal(int row, int col) const;
+  
   //设置棋子位置
   bool setChessPiece(int row, int col, chessType chtype);
+  
   //判断胜利
   bool isWin(chessType chtype) const;
+  
+  // 获取棋盘尺寸
+  int getBoardSize() const { return chessBoard.row; }
+  
+  // 判断棋盘是否已满
+  bool isBoardFull() const;
+  
+  // 获取可用的移动位置
+  std::vector<std::pair<int, int>> getAvailableMoves() const;
 
 private:
   //单个方向遍历函数，返回该方向连续棋子个数
   int singleDirCount(int row, int col) const;
-  
 };

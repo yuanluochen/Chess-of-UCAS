@@ -1,3 +1,4 @@
+// 更新 decisionTree.hpp
 /**
  * @file decisionTree.hpp 决策树
  * @author yuanluochen (yuanluochen@foxmail.com)
@@ -11,66 +12,41 @@
 #include <list>
 #include <vector>
 #include <iostream>
+#include <algorithm>
+#include <climits>
 #include "chessGame.hpp"
-
-/**
- * @brief 用邻接表实现的图
- * 
- */
-template <typename T> class graph {
-protected:
-  std::vector<std::list<T>> vexNode;
-public:
-  graph(){};
-
-  graph(graph &) = delete;
-  graph & operator=(graph &) = delete;
-
-  friend std::ostream & operator<<(std::ostream & os, const graph<T> & g){
-    for (int i = 0; i < g.vexNode.size(); i++) {
-      for (auto iter = g.vexNode[i].begin(); iter != g.vexNode[i].end();
-           iter++) {
-        os << *iter << " -> ";
-      }
-      os << std::endl;
-    }
-    return os;
-  }
-  /**
-   * @brief 节点添加函数
-   *
-   * @param srcIndex 父节点的下标
-   * @param data 该节点的数据
-   * @return int 当前节点的下标
-   */
-  int addNode(int srcIndex, T data) {
-    std::list<T> node;
-    node.push_back(data);
-    this->vexNode.push_back(node);
-    if (srcIndex >= 0) {
-      if (srcIndex >= vexNode.size()) {
-        std::cerr << "warning: the parent's Node index is not exist."
-                  << std::endl;
-      } else {
-        this->vexNode[srcIndex].push_back(data);
-      }
-    }
-    return this->vexNode.size() - 1;
-  };
-  void display() { std::cout << *this; }
-};
 
 struct TreeNode{
   int row;
   int col;
   int score;
+  chessGame gameState;
+  
+  TreeNode(int r, int c, int s, const chessGame& game) 
+    : row(r), col(c), score(s), gameState(game) {}
 };
 
-class decisionTree : public graph<TreeNode>{
+class DecisionTree {
 private:
   chessGame baseChess;
-  int lastIdx;
+  int maxDepth;
+  chessType aiPlayer; // AI玩家的棋子类型
+  
 public:
-  decisionTree(chessGame &base) : baseChess(base) {
-  };
+  //构造函数
+  DecisionTree(const chessGame& base, int depth, chessType ai) 
+    : baseChess(base), maxDepth(depth), aiPlayer(ai) {};
+  
+  // 获取最佳移动
+  std::pair<int, int> getBestMove();
+  
+  // 评估函数 - 给棋盘状态打分
+  int evaluateBoard(const chessGame& game) const;
+  
+private:
+  // Alpha-Beta 剪枝搜索
+  int alphaBeta(chessGame& game, int depth, int alpha, int beta, bool maximizingPlayer);
+  
+  // 生成可能的移动
+  std::vector<std::pair<int, int>> generateMoves(const chessGame& game) const;
 };

@@ -152,3 +152,35 @@ bool chessGame::isWin(chessType chtype) const{
   else
     return false;
 }
+
+/**
+ * @brief 判断棋盘是否已满
+ * 
+ * @return true 棋盘已满
+ * @return false 棋盘未满
+ */
+bool chessGame::isBoardFull() const {
+    for (int i = 0; i < chessBoard.row * chessBoard.col; i++) {
+        if (chessBoard.data[i] == VOID) {
+            return false;
+        }
+    }
+    return true;
+}
+
+/**
+ * @brief 获取可用的移动位置
+ * 
+ * @return std::vector<std::pair<int, int>> 可用位置列表
+ */
+std::vector<std::pair<int, int>> chessGame::getAvailableMoves() const {
+    std::vector<std::pair<int, int>> moves;
+    for (int i = 0; i < chessBoard.row; i++) {
+        for (int j = 0; j < chessBoard.col; j++) {
+            if (getChessPieceVal(i, j) == VOID) {
+                moves.push_back({i, j});
+            }
+        }
+    }
+    return moves;
+}

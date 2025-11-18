@@ -1,21 +1,23 @@
 #include <iostream>
+#include <ostream>
 #include "chessGame.hpp"
 #include "decisionTree.hpp"
 using namespace std;
-int main(){
-  // chessGame g(26);
-  // for (int i = 0; i < 5; i++){
-  //   g.setChessPiece(i, 5, BLACK);   
-  // } 
-  // cout << g << g.isWin(BLACK);
 
-  graph<int> graph;
-  int idx = graph.addNode(-1, 20);
-  idx = graph.addNode(idx, 30);
-  idx = graph.addNode(idx, 40);
-  idx = graph.addNode(idx, 50);
-  idx = graph.addNode(idx, 60);
-  idx = graph.addNode(idx, 70);
-  cout << graph;
+int main(){
+  chessGame game(15); // 创建15x15的棋盘
+  while (1){
+    std::cout << "play chess:=" << std::endl;
+    char row, col;
+    cin >> row;
+    cin >> col;
+    game.setChessPiece(row - '0', col - 'a', WRITE);
+    cout << game << endl;
+    DecisionTree ai(game, 3, BLACK); // 深度为3，AI执黑
+    auto bestMove = ai.getBestMove();
+    game.setChessPiece(bestMove.first, bestMove.second, BLACK);
+    cout << game << endl;
+  }
+  
   return 0;
 }
