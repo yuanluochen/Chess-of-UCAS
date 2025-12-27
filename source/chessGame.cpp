@@ -1,5 +1,8 @@
 #include "chessGame.hpp"
 #include <iomanip>
+#include <iostream>
+#include "decisionTree.hpp"
+using namespace std;
 
 /**
  * @brief 棋盘显示函数，重载了运算符 << 
@@ -31,10 +34,10 @@ std::ostream & operator<<(std::ostream & os, const chessGame & chess){
     for (int j = 0; j < chess.chessBoard.col; j++){
       int cur = chess.getChessPieceVal(i, j);
       if (cur == BLACK){
-        os << setw(charBoard) << 'x';    
+        os << " ●";
       }
       else if (cur == WRITE){
-        os << setw(charBoard) << 'o';
+        os << " ○";
       }
       else{
         os << setw(symBoard) << "·";
@@ -183,4 +186,113 @@ std::vector<std::pair<int, int>> chessGame::getAvailableMoves() const {
         }
     }
     return moves;
+}
+
+bool chessGame::playChess(chessType chty) {
+  if (chty == BLACK) {
+    cout << "●'s player chess:=" << std::endl;
+  } else {
+    cout << "○'s player chess:=" << std::endl;
+  }
+  char row, col;
+  cin >> row;
+  cin >> col;
+  while (1) {
+    if (!(row >= '0' && row <= '9' && col >= 'a' && col <= 'z')) {
+      cout << "输入格式错误， 输入格式(0~9)(a~z), 请重新输入:" << endl;
+      cin >> row;
+      cin >> col;
+    } else {
+      if (!this->setChessPiece(row - '0', col - 'a', chty)) {
+        // 这个位置有棋子要重新输入
+        cout << "输入位置有棋子, 请换个位置输入:" << endl;
+        cin >> row;
+        cin >> col;
+      } else {
+        break;
+      }
+    }
+  }
+  if (this->isWin(chty)) {
+    cout << *this << endl;
+    if (chty == BLACK)
+      cout << "●'s player is win" << endl;
+    else
+      cout << "○'s player is win" << endl;
+    return true;
+  }
+  return false;
+}
+
+int chessGame::man_to_man() {
+  while (1) {
+    cout << *this << endl;
+    if (playChess(BLACK)) {
+      return BLACK;
+    }
+    cout << *this << endl;
+    if (playChess(WRITE)) {
+      return WRITE;
+    }
+  }
+}
+
+int chessGame::man_to_ai() {
+  cout << "请选择棋子，● = 0, ○ = 1:" << endl;
+  chessType chty;
+  int temp = 0;
+  cin >> temp;
+  while (temp != 0 && temp != 1) {
+    cout << "输入错误，请重新输入(● = 0, ○ = 1)：" << endl;
+    cin >> temp;
+  }
+  if (temp == 0) {
+    chty = BLACK;
+  } else {
+    chty = WRITE;
+  }
+  while (1) {
+    if (chty == BLACK) {
+      cout << *this << endl;
+      if (playChess(BLACK)) {
+        return BLACK;
+      }
+      cout << *this << endl;
+      DecisionTree ai(*this, 7, WRITE);
+      auto bestMove = ai.getBestMove();
+      this->setChessPiece(bestMove.first, bestMove.second, WRITE);
+      if (this->isWin(WRITE)) {
+        cout << *this << endl;
+        cout << "AI is win" << endl;
+      }
+    }
+    if (chty == BLACK) {
+      cout << *this << endl;
+      if (playChess(BLACK)) {
+        return BLACK;
+      }
+      cout << *this << endl;
+      DecisionTree ai(*this, 4, WRITE);
+      auto bestMove = ai.getBestMove();
+      this->setChessPiece(bestMove.first, bestMove.second, WRITE);
+      if (this->isWin(WRITE)) {
+        cout << *this << endl;
+        cout << "AI is win" << endl;
+      }
+    } else {
+      cout << *this << endl;
+      DecisionTree ai(*this, 4, BLACK);
+      auto bestMove = ai.getBestMove();
+      this->setChessPiece(bestMove.first, bestMove.second, BLACK);
+      if (this->isWin(BLACK)) {
+        cout << *this << endl;
+        cout << "AI is win" << endl;
+        return BLACK;
+      }
+      cout << *this << endl;
+      if (playChess(WRITE)) {
+        return WRITE;
+      }
+    }
+  }
 }

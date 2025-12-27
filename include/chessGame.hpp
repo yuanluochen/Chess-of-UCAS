@@ -88,6 +88,14 @@ public:
   }
 
   ~chessGame() { delete[] this->chessBoard.data; }
+  // 玩家下棋函数
+  bool playChess(chessType);
+
+  // 人人对战
+  int man_to_man();
+
+  //人机对战
+  int man_to_ai();
   
   // 显示棋盘数据
   friend std::ostream & operator<<(std::ostream & os, const chessGame & chess);
