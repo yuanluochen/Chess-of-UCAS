@@ -198,9 +198,9 @@ std::vector<std::pair<int, int>> chessGame::getAvailableMoves() const {
  */
 bool chessGame::playChess(chessType chty) {
   if (chty == BLACK) {
-    cout << "●'s player chess:= (输入格式(0~14) (a~z)例如 (9 a))" << std::endl;
+    cout << "●'s player chess:= (输入格式(0~14) (a~o)例如 (9 a))" << std::endl;
   } else {
-    cout << "○'s player chess:= (输入格式(0~14) (a~z)例如 (9 a))" << std::endl;
+    cout << "○'s player chess:= (输入格式(0~14) (a~o)例如 (9 a))" << std::endl;
   }
   int row;
   char col;
@@ -208,7 +208,7 @@ bool chessGame::playChess(chessType chty) {
   cin >> col;
   while (1) {
     if (!(row >= 0 && row <= 14 && col >= 'a' && col <= 'o')) {
-      cout << "输入格式错误， 输入格式(0~14) (a~z)例如 (9 a), 请重新输入:" << endl;
+      cout << "输入格式错误， 输入格式(0~14) (a~o)例如 (9 a), 请重新输入:" << endl;
       cin >> row;
       cin >> col;
     } else {
