@@ -34,18 +34,39 @@ std::ostream & operator<<(std::ostream & os, const chessGame & chess){
     os << setw(symBoard) << i;
     for (int j = 0; j < chess.chessBoard.col; j++){
       int cur = chess.getChessPieceVal(i, j);
-      if (cur == BLACK){
-        os << " ●";
+      if (cur == BLACK) {
+        if (chess.chessPiece_q.back().pos.row == i &&
+            chess.chessPiece_q.back().pos.col == j) {
+          os << " ■";
+        } else {
+          os << " ●";
+        }
+
       }
       else if (cur == WRITE){
-        os << " ○";
+        if (chess.chessPiece_q.back().pos.row == i &&
+            chess.chessPiece_q.back().pos.col == j) {
+          os << " □";
+        } else {
+          os << " ○";
+        }
       }
       else{
-        os << setw(symBoard) << "·";
+        if (i == 7 && j == 7) {
+          os  << " +";
+        } else {
+          os <<  setw(symBoard) <<"·";
+        }
       }
     }
+    os << " " << i;
     os << endl;
   }
+  os << setw(symBoard) << " ";
+  for (int i = 0; i < chess.chessBoard.col; i++) {
+    os << setw(charBoard) << char('a' + i);
+  }
+  os << endl;
   return os; 
 };
 
