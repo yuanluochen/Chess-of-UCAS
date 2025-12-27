@@ -1,4 +1,13 @@
-// 在 chessGame.hpp 中添加必要的头文件和函数声明
+/**
+ * @file chessGame.hpp 五子棋类
+ * @author yuanluochen
+ * @brief 
+ * @version 0.1
+ * @date 2025-12-27
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
 #pragma once
 #include <iostream>
 #include <ostream>

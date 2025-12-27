@@ -1,8 +1,7 @@
-// 更新 decisionTree.hpp
 /**
  * @file decisionTree.hpp 决策树
  * @author yuanluochen (yuanluochen@foxmail.com)
- * @brief 
+ * @brief 实现五子棋对战的相应功能
  * @version 0.1
  * @date 2025-10-21
  * 
