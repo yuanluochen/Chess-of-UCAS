@@ -91,6 +91,8 @@ public:
   // 玩家下棋函数
   bool playChess(chessType);
 
+  bool aiPlayChess(chessType);
+
   // 人人对战
   int man_to_man();
 

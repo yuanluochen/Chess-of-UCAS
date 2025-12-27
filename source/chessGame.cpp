@@ -189,6 +189,13 @@ std::vector<std::pair<int, int>> chessGame::getAvailableMoves() const {
     return moves;
 }
 
+/**
+ * @brief 下棋函数 包括棋子输入和判断胜负
+ * 
+ * @param chty 棋子类型
+ * @return true 赢
+ * @return false 没赢
+ */
 bool chessGame::playChess(chessType chty) {
   if (chty == BLACK) {
     cout << "●'s player chess:= (输入格式(0~14) (a~z)例如 (9 a))" << std::endl;
@@ -200,7 +207,7 @@ bool chessGame::playChess(chessType chty) {
   cin >> row;
   cin >> col;
   while (1) {
-    if (!(row >= 0 && row <= 14 && col >= 'a' && col <= 'z')) {
+    if (!(row >= 0 && row <= 14 && col >= 'a' && col <= 'o')) {
       cout << "输入格式错误， 输入格式(0~14) (a~z)例如 (9 a), 请重新输入:" << endl;
       cin >> row;
       cin >> col;
@@ -226,6 +233,29 @@ bool chessGame::playChess(chessType chty) {
   return false;
 }
 
+/**
+ * @brief ai下棋函数
+ * 
+ * @param chty 棋子类型
+ * @return true 赢
+ * @return false 没赢
+ */
+bool chessGame::aiPlayChess(chessType chty) {
+  DecisionTree ai(*this, 3, chty);
+  auto bestMove = ai.getBestMove();
+  this->setChessPiece(bestMove.first, bestMove.second, chty);
+  if (this->isWin(WRITE)) {
+    cout << *this << endl;
+    cout << "AI is win" << endl;
+    return true;
+  }
+  return false;
+}
+/**
+ * @brief 人人对战
+ * 
+ * @return int 胜利方的枚举值
+ */
 int chessGame::man_to_man() {
   while (1) {
     cout << *this << endl;
@@ -239,6 +269,11 @@ int chessGame::man_to_man() {
   }
 }
 
+/**
+ * @brief 人机对战
+ * 
+ * @return int 胜利一方枚举值
+ */
 int chessGame::man_to_ai() {
   cout << "请选择棋子，● = 0, ○ = 1:" << endl;
   chessType chty;
@@ -260,35 +295,12 @@ int chessGame::man_to_ai() {
         return BLACK;
       }
       cout << *this << endl;
-      DecisionTree ai(*this, 7, WRITE);
-      auto bestMove = ai.getBestMove();
-      this->setChessPiece(bestMove.first, bestMove.second, WRITE);
-      if (this->isWin(WRITE)) {
-        cout << *this << endl;
-        cout << "AI is win" << endl;
-      }
-    }
-    if (chty == BLACK) {
-      cout << *this << endl;
-      if (playChess(BLACK)) {
-        return BLACK;
-      }
-      cout << *this << endl;
-      DecisionTree ai(*this, 3, WRITE);
-      auto bestMove = ai.getBestMove();
-      this->setChessPiece(bestMove.first, bestMove.second, WRITE);
-      if (this->isWin(WRITE)) {
-        cout << *this << endl;
-        cout << "AI is win" << endl;
+      if (aiPlayChess(WRITE)) {
+        return WRITE;
       }
     } else {
       cout << *this << endl;
-      DecisionTree ai(*this, 3, BLACK);
-      auto bestMove = ai.getBestMove();
-      this->setChessPiece(bestMove.first, bestMove.second, BLACK);
-      if (this->isWin(BLACK)) {
-        cout << *this << endl;
-        cout << "AI is win" << endl;
+      if (aiPlayChess(BLACK)) {
         return BLACK;
       }
       cout << *this << endl;
