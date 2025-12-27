@@ -1,4 +1,5 @@
 #include "chessGame.hpp"
+#include <cstdlib>
 #include <iomanip>
 #include <iostream>
 #include "decisionTree.hpp"
@@ -190,20 +191,21 @@ std::vector<std::pair<int, int>> chessGame::getAvailableMoves() const {
 
 bool chessGame::playChess(chessType chty) {
   if (chty == BLACK) {
-    cout << "●'s player chess:=" << std::endl;
+    cout << "●'s player chess:= (输入格式(0~14) (a~z)例如 (9 a))" << std::endl;
   } else {
-    cout << "○'s player chess:=" << std::endl;
+    cout << "○'s player chess:= (输入格式(0~14) (a~z)例如 (9 a))" << std::endl;
   }
-  char row, col;
+  int row;
+  char col;
   cin >> row;
   cin >> col;
   while (1) {
-    if (!(row >= '0' && row <= '9' && col >= 'a' && col <= 'z')) {
-      cout << "输入格式错误， 输入格式(0~9)(a~z), 请重新输入:" << endl;
+    if (!(row >= 0 && row <= 14 && col >= 'a' && col <= 'z')) {
+      cout << "输入格式错误， 输入格式(0~14) (a~z)例如 (9 a), 请重新输入:" << endl;
       cin >> row;
       cin >> col;
     } else {
-      if (!this->setChessPiece(row - '0', col - 'a', chty)) {
+      if (!this->setChessPiece(row, col - 'a', chty)) {
         // 这个位置有棋子要重新输入
         cout << "输入位置有棋子, 请换个位置输入:" << endl;
         cin >> row;
@@ -272,7 +274,7 @@ int chessGame::man_to_ai() {
         return BLACK;
       }
       cout << *this << endl;
-      DecisionTree ai(*this, 4, WRITE);
+      DecisionTree ai(*this, 3, WRITE);
       auto bestMove = ai.getBestMove();
       this->setChessPiece(bestMove.first, bestMove.second, WRITE);
       if (this->isWin(WRITE)) {
@@ -281,7 +283,7 @@ int chessGame::man_to_ai() {
       }
     } else {
       cout << *this << endl;
-      DecisionTree ai(*this, 4, BLACK);
+      DecisionTree ai(*this, 3, BLACK);
       auto bestMove = ai.getBestMove();
       this->setChessPiece(bestMove.first, bestMove.second, BLACK);
       if (this->isWin(BLACK)) {
