@@ -37,6 +37,8 @@ make
 
 ## 项目结构
 
+![](./image-1.png)
+
 项目采用模块化设计，主要包含以下文件结构：
 - 核心逻辑：`source/chessGame.cpp`（游戏流程与棋盘管理）、`source/decisionTree.cpp`（AI决策实现）
 - 头文件：`include/chessGame.hpp`、`include/decisionTree.hpp`
