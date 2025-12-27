@@ -262,7 +262,7 @@ bool chessGame::playChess(chessType chty) {
  * @return false 没赢
  */
 bool chessGame::aiPlayChess(chessType chty) {
-  DecisionTree ai(*this, 3, chty);
+  DecisionTree ai(*this, 4, chty);
   auto bestMove = ai.getBestMove();
   this->setChessPiece(bestMove.first, bestMove.second, chty);
   if (this->isWin(WRITE)) {
