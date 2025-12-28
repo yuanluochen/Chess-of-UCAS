@@ -4,7 +4,7 @@
 // 评估函数实现
 int DecisionTree::evaluateBoard(const chessGame& game) const {
     int score = 0;
-    int boardSize = game.getBoardSize();
+    int boardSize = game.getBoardSize().first;
     
     // 检查每个位置的四方向连线
     for (int i = 0; i < boardSize; i++) {
@@ -58,7 +58,7 @@ int DecisionTree::evaluateBoard(const chessGame& game) const {
 
 std::vector<std::pair<int, int>> DecisionTree::generateMoves(const chessGame& game) const {
     std::vector<std::pair<int, int>> moves;
-    int boardSize = game.getBoardSize();
+    int boardSize = game.getBoardSize().first;
     // 首先收集所有空位
     std::vector<std::pair<int, int>> allEmpty;
     for (int i = 0; i < boardSize; i++) {
@@ -68,7 +68,7 @@ std::vector<std::pair<int, int>> DecisionTree::generateMoves(const chessGame& ga
             }
         }
     }
-    // 如果有棋子，优先考虑已有棋子周围的位置
+    // 寻找非空位置
     bool hasPieces = false;
     for (int i = 0; i < boardSize && !hasPieces; i++) {
         for (int j = 0; j < boardSize && !hasPieces; j++) {

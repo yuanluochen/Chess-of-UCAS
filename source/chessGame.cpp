@@ -53,7 +53,7 @@ std::ostream & operator<<(std::ostream & os, const chessGame & chess){
         }
       }
       else{
-        if (i == 7 && j == 7) {
+        if (i == chess.getBoardSize().first / 2 && j == chess.getBoardSize().second / 2) {
           os  << " +";
         } else {
           os <<  setw(symBoard) <<"·";

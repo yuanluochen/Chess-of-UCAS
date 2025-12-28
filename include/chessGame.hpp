@@ -12,6 +12,7 @@
 #include <iostream>
 #include <ostream>
 #include <queue>
+#include <utility>
 #include <vector>
 
 //函数清空根据系统进行选择
@@ -123,9 +124,8 @@ public:
   // 计算最大连子数
   int getMaxNumPieces(chessType chtype) const;
   
-  
   // 获取棋盘尺寸
-  int getBoardSize() const { return chessBoard.row; }
+  std::pair<int, int> getBoardSize() const { return {chessBoard.row, chessBoard.col}; }
   
   // 判断棋盘是否已满
   bool isBoardFull() const;
