@@ -17,7 +17,7 @@ int DecisionTree::evaluateBoard(const chessGame& game, const chessType chty) con
   else if (maxLine == 4)
     directionScore = 3000; // 四连
   else if (maxLine == 3)
-    directionScore = 2000; // 三连
+    directionScore = 2900; // 三连
   else if (maxLine == 2)
     directionScore = 10; // 二连
 
