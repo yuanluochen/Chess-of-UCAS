@@ -40,11 +40,11 @@ public:
   std::pair<int, int> getBestMove();
   
   // 评估函数 - 给棋盘状态打分
-  int evaluateBoard(const chessGame& game) const;
-  
+  int evaluateBoard(const chessGame &game, const chessType chty) const;
+
 private:
   // Alpha-Beta 剪枝搜索
-  int alphaBeta(chessGame& game, int depth, int alpha, int beta, bool maximizingPlayer);
+  int alphaBeta(chessGame& game, int depth, int alpha, int beta, chessType chty);
   
   // 生成可能的移动
   std::vector<std::pair<int, int>> generateMoves(const chessGame& game) const;

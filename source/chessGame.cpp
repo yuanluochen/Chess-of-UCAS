@@ -144,7 +144,7 @@ int chessGame::singleDirCount(int row, int col) const{
  * @param chtype 棋子类型
  * @return int 最大连字数
  */
-int chessGame::getMaxNumPieces(chessType chtype) const {
+int chessGame::getMaxNumPieces() const {
   /*
    * l l_u u r_u r r_d d l_d
    * 0  1  2  3  4  5  6  7
@@ -177,7 +177,7 @@ int chessGame::getMaxNumPieces(chessType chtype) const {
  * @return false 未胜利
  */
 bool chessGame::isWin(chessType chtype) const{
-  if (this->getMaxNumPieces(chtype) >= 5)
+  if (this->getMaxNumPieces() >= 5)
     return true;
   else
     return false;

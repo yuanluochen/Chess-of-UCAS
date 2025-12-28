@@ -122,7 +122,7 @@ public:
   bool isWin(chessType chtype) const;
 
   // 计算最大连子数
-  int getMaxNumPieces(chessType chtype) const;
+  int getMaxNumPieces() const;
   
   // 获取棋盘尺寸
   std::pair<int, int> getBoardSize() const { return {chessBoard.row, chessBoard.col}; }
