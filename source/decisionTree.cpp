@@ -100,8 +100,8 @@ std::vector<std::pair<int, int>> DecisionTree::generateMoves(const chessGame& ga
         // 按分数排序
         std::sort(scoredMoves.begin(), scoredMoves.end(), 
                   [](const auto& a, const auto& b) { return a.first > b.first; });
-        // 只取前20个最佳位置（为了性能）
-        int count = std::min(20, (int)scoredMoves.size());
+        // 只取前n个最佳位置（为了性能）
+        int count = std::min(30, (int)scoredMoves.size());
         for (int i = 0; i < count; i++) {
             moves.push_back(scoredMoves[i].second);
         }

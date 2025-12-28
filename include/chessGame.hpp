@@ -119,6 +119,10 @@ public:
   
   //判断胜利
   bool isWin(chessType chtype) const;
+
+  // 计算最大连子数
+  int getMaxNumPieces(chessType chtype) const;
+  
   
   // 获取棋盘尺寸
   int getBoardSize() const { return chessBoard.row; }

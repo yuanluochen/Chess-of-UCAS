@@ -1,4 +1,5 @@
 #include "chessGame.hpp"
+#include <algorithm>
 #include <cstdlib>
 #include <iomanip>
 #include <iostream>
@@ -137,42 +138,46 @@ int chessGame::singleDirCount(int row, int col) const{
   }
   return count;
 }
-
 /**
- * @brief 判断胜利，以新下的棋子为中心位置从八个方向进行判断
- * 
+ * @brief 以新下的棋子为中心位置从八个方向进行寻找最大连字数
+ *
  * @param chtype 棋子类型
- * @return true 胜利
- * @return false 未胜利
+ * @return int 最大连字数
  */
-bool chessGame::isWin(chessType chtype) const{
+int chessGame::getMaxNumPieces(chessType chtype) const {
   /*
-  * l l_u u r_u r r_d d l_d 
-  * 0  1  2  3  4  5  6  7
-  */
+   * l l_u u r_u r r_d d l_d
+   * 0  1  2  3  4  5  6  7
+   */
   struct dir {
     int row;
     int col;
   };
   enum DIR { L, L_U, U, R_U, R, R_D, D, L_D };
-  //8个遍历方向
-  dir dir_a[8] = {
-    {0, -1}, 
-    {-1, -1},
-    {-1, 0},
-    {-1, 1},
-    {0, 1},
-    {1, 1},
-    {1, 0},
-    {1, -1}
-  };
-  //四个方向的遍历函数 水平 竖直 左上-右下 右上-左下
-  int count_1 = this->singleDirCount(dir_a[L].row, dir_a[L].col) + this->singleDirCount(dir_a[U].row, dir_a[U].col) - 1;
-  int count_2 = this->singleDirCount(dir_a[U].row, dir_a[U].col) + this->singleDirCount(dir_a[D].row, dir_a[D].col) - 1;
-  int count_3 = this->singleDirCount(dir_a[L_U].row, dir_a[L_U].col) + this->singleDirCount(dir_a[R_D].row, dir_a[R_D].col) - 1;
-  int count_4 = this->singleDirCount(dir_a[R_U].row, dir_a[R_U].col) + this->singleDirCount(dir_a[L_D].row, dir_a[L_D].col) - 1;
-  
-  if (count_1 >= 5 || count_2 >= 5 || count_3 >= 5 || count_4 >= 5)
+  // 8个遍历方向
+  dir dir_a[8] = {{0, -1}, {-1, -1}, {-1, 0}, {-1, 1},
+                  {0, 1},  {1, 1},   {1, 0},  {1, -1}};
+  // 四个方向的遍历函数 水平 竖直 左上-右下 右上-左下
+  int count_1 = this->singleDirCount(dir_a[L].row, dir_a[L].col) +
+                this->singleDirCount(dir_a[U].row, dir_a[U].col) - 1;
+  int count_2 = this->singleDirCount(dir_a[U].row, dir_a[U].col) +
+                this->singleDirCount(dir_a[D].row, dir_a[D].col) - 1;
+  int count_3 = this->singleDirCount(dir_a[L_U].row, dir_a[L_U].col) +
+                this->singleDirCount(dir_a[R_D].row, dir_a[R_D].col) - 1;
+  int count_4 = this->singleDirCount(dir_a[R_U].row, dir_a[R_U].col) +
+                this->singleDirCount(dir_a[L_D].row, dir_a[L_D].col) - 1;
+  return std::max({count_1, count_2, count_3, count_4});
+}
+
+/**
+ * @brief 判断胜利，以新下的棋子为中心位置从八个方向进行判断
+ *
+ * @param chtype 棋子类型
+ * @return true 胜利
+ * @return false 未胜利
+ */
+bool chessGame::isWin(chessType chtype) const{
+  if (this->getMaxNumPieces(chtype) >= 5)
     return true;
   else
     return false;
